@@ -11,8 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Biblioteca.h"
-
-
+#include <unistd.h>
+#include <ctype.h>
 
 int main(void)
 {
@@ -118,7 +118,7 @@ int main(void)
 		case 5:
 			system("cls");
 			printf("Saliendo... Gracias por usar la aplicacion!!\n\n\n");
-			system("pause");
+			sleep(2);
 			break;
 		}
 
