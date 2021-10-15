@@ -168,4 +168,12 @@ int ContarSalarioPorEncimaDelPromedio(Empleado listaEmpleados[],int tam, float p
 /// @return retorna 1 si pudo hacerlo, 0 si no pudo
 int MostrarTotalYPromedio(Empleado listaEmpleados[], int tam);
 
+/// @fn int SaberSiHayActivos(Empleado[], int)
+/// @brief recorre el array para ver si hay empleados cargador o no
+///
+/// @param listaEmpleados
+/// @param tam
+/// @return retorna 1 si encuentra al menos 1 empleado cargado, 0 si no hay ninguno
+int SaberSiHayActivos(Empleado listaEmpleados[], int tam);
+
 #endif /* ARRAYEmpleadoS_H_ */

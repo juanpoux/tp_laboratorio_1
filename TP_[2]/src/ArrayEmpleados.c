@@ -18,7 +18,7 @@ Empleado CargarEmpleados()
 
 	PedirNombre("Ingrese nombre del empleado: ", empleados.name, 51);
 	PedirNombre("Ingrese apellido del empleado: ", empleados.lastName, 51);
-	PedirFlotanteP(&empleados.salary, "Ingrese salario del empleado: ", "Error, opcion invalida! ", 0, 9999999);
+	PedirFlotanteP(&empleados.salary, "Ingrese salario del empleado: ", "Error, opcion invalida! ", 0, 99999999);
 	PedirEnteroP(&empleados.sector, "Ingrese sector del empleado:\n1 Administracion.\n2 Contabilidad. \n3 RRHH. \n4 Ventas. \n5 Logistica ", "Error, opcion invalida! ", 1, 5);
 
 	return empleados;
@@ -169,7 +169,7 @@ int RemoverEmpleado(Empleado listaEmpleados[], int tam)
 		system("cls");
 		index = BuscarEmpleadoPorID(listaEmpleados, tam, idEmpleado);
 
-		if(index != -1)
+		if(index != -1 && listaEmpleados[index].isEmpty == OCUPADO)
 		{
 			Encabezado();
 			MostrarEmpleadoConDescripcionSector(listaEmpleados[index]);
@@ -206,7 +206,7 @@ int ModificarEmpleado(Empleado listaEmpleados[], int tam)
 		system("cls");
 		index = BuscarEmpleadoPorID(listaEmpleados, tam, idEmpleado);
 
-		if(index != -1)
+		if(index != -1 && listaEmpleados[index].isEmpty == OCUPADO)
 		{
 			retorno = 1;
 			do
@@ -441,7 +441,6 @@ int OrdenarDobleCriterio(Empleado listaEmpleados[], int tam, int orden)
 	return retorno;
 }
 
-
 void MostrarEmpleadoConDescripcionSector(Empleado listaEmpleados)
 {
 	char descripcionSectores[5][LARGONOMBRE] =
@@ -458,7 +457,6 @@ void MostrarEmpleadoConDescripcionSector(Empleado listaEmpleados)
 			"---------------------------------------------------------------------------\n");
 }
 
-//modificar que retorne resultado si es NULL
 int MostrarListaEmpleadoConDescripcionSector(Empleado listaEmpleados[], int tam)
 {
 	int i;
@@ -565,3 +563,22 @@ int MostrarTotalYPromedio(Empleado listaEmpleados[], int tam)
 	return retorno;
 }
 
+int SaberSiHayActivos(Empleado listaEmpleados[], int tam)
+{
+	int retorno;
+	int i;
+
+	retorno = 0;
+	if(listaEmpleados != NULL && tam > 0)
+	{
+		for(i = 0; i < tam; i++)
+		{
+			if(listaEmpleados[i].isEmpty == OCUPADO)
+			{
+				retorno = 1;
+				break;
+			}
+		}
+	}
+	return retorno;
+}

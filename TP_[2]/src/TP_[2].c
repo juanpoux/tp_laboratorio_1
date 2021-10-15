@@ -16,9 +16,9 @@
 
 #include "ArrayEmpleados.h"
 #include "Input.h"
-#define T 7
+#define T 1000
 
-int SaberSiHayActivos(Empleado listaEmpleados[], int tam);
+
 
 int main(void)
 {
@@ -30,19 +30,19 @@ int main(void)
 	int orden;
 	int opcionInformar;
 	int baja;
-	Empleado listaEmpleados[T] =
+	Empleado listaEmpleados[T]/* =
 	{
-	{ 1, "jUAn caRLOs", "Gomez", 123121, 3, 2 }/*,
-	{ 2, "pedro pik", "Gomez", 12312, 1, 2 },
+	{ 1, "jUAn caRLOs", "poux", 123121, 3, OCUPADO },
+	{ 2, "pedro", "Gomez", 12312, 1, OCUPADO },
 	{ 3, "mariano", "Gomez", 34312, 4, 2 },
 	{ 4, "jose", "Gomez", 12312, 2, 2 },
 	{ 5, "andres", "avila", 12312, 1, 2 },
-	{ 6, "asdas", "asd", 12312, 2, 2 },
-	{ 7, "dasdas", "poux", 12312, 1, 2 }*/ };
+	{ 6, "pablo", "fernandez", 12312, 2, 2 },
+	{ 7, "ezequiel", "gomez", 12312, 1, 2 } }*/;
 
-	banderaUno = 1;//acordarme de modificar
-	bancoId = 8;//acordarme de modificar
-	//InicializarEmpleados(listaEmpleados, T);
+	banderaUno = 0;//acordarme de modificar
+	bancoId = 1;//acordarme de modificar
+	InicializarEmpleados(listaEmpleados, T);
 
 	do
 	{
@@ -52,11 +52,17 @@ int main(void)
 			AltaEmpleados(listaEmpleados, T, &bancoId);
 			banderaUno = 1;
 			system("cls");
+			printf("Empleado cargado en el sistema!\n");
+			system("pause");
+			system("cls");
 			break;
 		case 2:
-			if (banderaUno == 1)
+			if (banderaUno != 0)
 			{
-				ModificarEmpleado(listaEmpleados, T);
+				if(ModificarEmpleado(listaEmpleados, T) == 0)
+				{
+					printf("No se encontro ningun empleado activo con ese ID.\n");
+				}
 			}
 			else
 			{
@@ -66,12 +72,12 @@ int main(void)
 			system("cls");
 			break;
 		case 3:
-			if (banderaUno == 1)
+			if (banderaUno != 0)
 			{
 				baja = RemoverEmpleado(listaEmpleados, T);
 				if (baja == 1)
 				{
-					printf("Removido con exito!\n");
+					printf("Empleado removido con exito!\n");
 				}
 				else
 				{
@@ -81,7 +87,7 @@ int main(void)
 					}
 					else
 					{
-						printf("No existe el ID ingresado\n");
+						printf("No se encontro ningun empleado activo con ese ID.\n");
 					}
 				}
 			}
@@ -96,7 +102,7 @@ int main(void)
 			break;
 		case 4:
 
-			if (banderaUno == 1)
+			if (banderaUno != 0)
 			{
 				PedirEnteroP(&opcionInformar, "Ingrese 1 para ver listado de los empleados ordenados alfabeticamente por Apellido y Sector: \n"
 						"Ingrese 2 para ver total y promedio de los salarios, y cuantos empleados superan el salario promedio: ", "ERROR ", 1, 2);
@@ -139,24 +145,3 @@ int main(void)
 	return EXIT_SUCCESS;
 }
 
-int SaberSiHayActivos(Empleado listaEmpleados[], int tam)
-{
-	int retorno;
-	int i;
-
-	retorno = 0;
-
-	if(listaEmpleados != NULL && tam > 0)
-	{
-		for(i = 0; i < 0; i++)
-		{
-			if(listaEmpleados[i].isEmpty == OCUPADO)
-			{
-				retorno = 1;
-				break;
-			}
-		}
-	}
-
-	return retorno;
-}
