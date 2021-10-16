@@ -101,10 +101,6 @@ int AltaEmpleados(Empleado listaEmpleados[], int tam, int* generadorId)
 		*generadorId = *generadorId + 1;
 		retorno = 1;
 	}
-	else
-	{
-		printf("No hay espacio para agregar mas empleados!\n");
-	}
 
 	return retorno;
 }

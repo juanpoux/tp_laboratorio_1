@@ -49,10 +49,16 @@ int main(void)
 		switch (MenuDeOpciones())
 		{
 		case 1:
-			AltaEmpleados(listaEmpleados, T, &bancoId);
-			banderaUno = 1;
-			system("cls");
-			printf("Empleado cargado en el sistema!\n");
+			if(AltaEmpleados(listaEmpleados, T, &bancoId) == 1)
+			{
+				banderaUno = 1;
+				system("cls");
+				printf("Empleado cargado en el sistema!\n");
+			}
+			else
+			{
+				printf("No hay espacio para agregar mas empleados!\n");
+			}
 			system("pause");
 			system("cls");
 			break;
@@ -72,7 +78,7 @@ int main(void)
 			system("cls");
 			break;
 		case 3:
-			if (banderaUno != 0)
+			if (banderaUno == 1)
 			{
 				baja = RemoverEmpleado(listaEmpleados, T);
 				if (baja == 1)
