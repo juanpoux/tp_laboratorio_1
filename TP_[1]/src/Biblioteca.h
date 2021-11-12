@@ -42,14 +42,15 @@ float Multiplicacion (float, float);
 /// @param primer numero ingresado por el usuario
 /// @param segundo numero ingresado por el usuario
 /// @return retorna el valor de la division
-float Division (float, float);
+//float Division (float, float);
+int Division(float numeroUno, float numeroDos, float *resultado);
 
 /// @fn long int CalcularFactorial(int)
 /// @brief calcula el factorial del numero que se ingrese mientras sea menor que 13, positivo y entero
 ///
 /// @param numero ingresado por el usuario
 /// @return retorna el valor del factorial
-int CalcularFactorial(int);
+int CalcularFactorial(int *resultado, int numeroIngresado);
 
 /// @fn int ConvertirFlotanteAEntero(float)
 /// @brief Verifica si el numero es flotante o entero

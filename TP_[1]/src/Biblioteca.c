@@ -52,6 +52,28 @@ float Division (float numeroUno, float numeroDos)
 	return resultado;
 }
 
+int Division(float numeroUno, float numeroDos, float *resultado)
+{
+	float calculo;
+	int retorno;
+
+	retorno = -1;
+	if(resultado != NULL)
+	{
+		if(numeroUno == 0 || numeroDos == 0)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			retorno = 0;
+			calculo = numeroUno / numeroDos;
+			*resultado = calculo;
+		}
+	}
+	return retorno;
+}
+
 int ConvertirFlotanteAEntero(float numeroIngresado)
 {
 	int retorno;
@@ -67,7 +89,7 @@ int ConvertirFlotanteAEntero(float numeroIngresado)
 
 	return retorno;
 }
-int CalcularFactorial(int numeroIngresado)
+/*int CalcularFactorial(int numeroIngresado)
 
 {
 	int factorial;
@@ -82,4 +104,30 @@ int CalcularFactorial(int numeroIngresado)
 	}
 
 	return factorial;
+}*/
+
+int CalcularFactorial(int* resultado, int numeroIngresado)
+{
+	int retorno;
+	int factorial;
+
+	factorial = -1;
+	if(resultado != NULL)
+	{
+		retorno = 0;
+		if(numeroIngresado == 0)
+		{
+			numeroIngresado = 1;
+			*resultado = numeroIngresado;
+		}
+		else
+		{
+			for(int i = factorial; i > 0; i--)
+			{
+				numeroIngresado = numeroIngresado * i;
+			}
+			*resultado = numeroIngresado;
+		}
+	}
+	return retorno;
 }
