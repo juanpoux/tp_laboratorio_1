@@ -22,4 +22,5 @@ int controller_menuDeOpciones();
 void controller_guardarId(char *path, int bancoId);
 int controller_leerId();
 int controller_generarPrimerId(LinkedList *pArrayListEmployee, int *bancoId);
-void controller_guardarId2(int guardarId);
+int controller_guardarId2(int guardarId);
+int controller_GuardarPrimerId(int *id);

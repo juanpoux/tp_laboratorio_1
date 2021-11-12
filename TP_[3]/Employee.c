@@ -22,7 +22,6 @@ Employee* employee_newParametros(char *idStr, char *nombreStr, char *horasTrabaj
 	char nombre[MAXNAME];
 	int horas;
 	int sueldo;
-	// SI ESTO RECIBE ALGUN PARAMETRO MAL, ROMPER EL EMPLEADO
 	aux = employee_new();
 	if(idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL && sueldoStr != NULL)
 	{
@@ -30,10 +29,6 @@ Employee* employee_newParametros(char *idStr, char *nombreStr, char *horasTrabaj
 		strncpy(nombre, nombreStr, MAXNAME);
 		horas = atoi(horasTrabajadasStr);
 		sueldo = atoi(sueldoStr);
-		//employee_setId(aux, id);
-		//employee_setNombre(aux, nombre);
-		//employee_setHorasTrabajadas(aux, horas);
-		//employee_setSueldo(aux, sueldo);
 		if(employee_setId(aux, id) || employee_setNombre(aux, nombre) || employee_setHorasTrabajadas(aux, horas) || employee_setSueldo(aux, sueldo))
 		{
 			aux = NULL;
@@ -98,7 +93,6 @@ int employee_setNombreXTeclado(Employee *this)
 	int retorno;
 	char nombre[MAXNAME];
 
-	//PedirCadena("Ingrese el nombre: ", nombre, MAXNAME);
 	PedirNombre("Ingrese el nombre: ", nombre, MAXNAME);
 	retorno = -1;
 	if(this != NULL)
@@ -341,23 +335,6 @@ int employee_compararId(void *empleadoUno, void *empleadoDos)
 	}
 	return retorno;
 }
-
-/*Employee* employee_newXTeclado(int id)
-{
-	Employee *aux;
-
-	aux = employee_new();
-
-	if(aux != NULL)
-	{
-		employee_setNombreXTeclado(aux);
-		employee_setHorasTrabajadasXTeclado(aux);
-		employee_setSueldoXTeclado(aux);
-		employee_setId(aux, id);
-	}
-
-	return aux;
-}*/
 
 Employee* employee_newXTeclado()
 {

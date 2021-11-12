@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "parser.h"
 
-//AGREGAR 2 FUNCIONES 1 PARA GUARDAR EL EMPLEADO EN EL ARCHIVO EN BINARIO Y OTRO MODO TEXTO
-
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -45,11 +43,11 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno;
 	Employee *aux;
+
 	retorno = -1;
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
 		retorno = 0;
-
 		while(!feof(pFile))
 		{
 			aux = employee_new();

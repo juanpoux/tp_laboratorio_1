@@ -22,9 +22,7 @@ int main()
 {
 	setbuf(stdout, NULL);
 
-	int option;
 	int salir;
-	int order;
 	int bancoId;
 	LinkedList *listaEmpleados = ll_newLinkedList();
 	int banderaInicio;
@@ -46,7 +44,7 @@ int main()
 				puts("\t*************** Carga de empleados ***************");
 				if(!controller_loadFromText(ARCHIVOPRINCIPAL, listaEmpleados))
 				{
-					controller_leerId(&bancoId);
+					controller_GuardarPrimerId(&bancoId);
 					banderaInicio = 1;
 					puts("\t  *************** Carga exitosa ***************");
 				}
@@ -66,7 +64,7 @@ int main()
 				puts("\t*************** Carga de empleados ***************");
 				if(!controller_loadFromBinary(ARCHIVOBINARIO, listaEmpleados))
 				{
-					controller_leerId(&bancoId);
+					controller_GuardarPrimerId(&bancoId);
 					banderaInicio = 1;
 					puts("\t  *************** Carga exitosa ***************");
 				}
@@ -82,25 +80,22 @@ int main()
 			break;
 		case 3:
 			puts("\t*************** Alta de empleado ***************");
-			if(!controller_addEmployee(listaEmpleados))
+
+			switch(controller_addEmployee(listaEmpleados))
 			{
+			case -1:
+				puts("Error al realizar el alta!");
+				break;
+			case 0:
 				puts("\t  *************** Alta exitosa ***************");
 				banderaModificaciones = 1;
 				banderaGuardarTexto = 0;
 				banderaGuardarBinario = 0;
+				break;
+			case 1:
+				puts("\t  *************** Alta cancelada ***************");
+				break;
 			}
-			else
-			{
-				puts("Error al realizar el alta!");
-			}
-			/*if(!controller_addEmployee(listaEmpleados, &bancoId))
-			{
-				puts("\t  *************** Alta exitosa ***************");
-			}
-			else
-			{
-				puts("Error al realizar el alta!");
-			}*/
 			break;
 		case 4:
 			if(!ll_isEmpty(listaEmpleados))
@@ -142,7 +137,6 @@ int main()
 			{
 				puts("Primero debe cargar el archivo o dar de alta un empleado!");
 			}
-
 			break;
 		case 6:
 			if(!ll_isEmpty(listaEmpleados))
@@ -162,37 +156,16 @@ int main()
 			if(!ll_isEmpty(listaEmpleados))
 			{
 				puts("\t  *************** Ordenar Empleados ***************");
-				PedirEnteroP(&option, "1) Ordenar por nombres \n2) Ordenar por sueldos \n3) Ordenar por horas trabajadas "
-						"\n4) Ordenar por ID \nIngrese una opcion: ", "Error, ingreso invalido \n", 1, 4);
-				switch(option)
+				if(!controller_sortEmployee(listaEmpleados))
 				{
-				case 1:
-					puts("\t  *************** Ordenar por nombre ***************");
-					PedirEnteroP(&order, "1) Ordenar de A a Z \n0) Ordenar de Z a A \nIngrese una opcion: ", "Error, ingreso invalido \n", 0, 1);
-					ll_sort(listaEmpleados, employee_compararNombres, order);
-					break;
-				case 2:
-					puts("\t  *************** Ordenar por sueldo ***************");
-					PedirEnteroP(&order, "1) Ordenar de forma ascendente \n0) Ordenar de forma descendente \nIngrese una opcion: ",
-							"Error, ingreso invalido \n", 0, 1);
-					ll_sort(listaEmpleados, employee_compararSueldo, order);
-					break;
-				case 3:
-					puts("\t  *************** Ordenar por horas trabajadas ***************");
-					PedirEnteroP(&order, "1) Ordenar de forma ascendente \n0) Ordenar de forma descendente \nIngrese una opcion: ",
-							"Error, ingreso invalido \n", 0, 1);
-					ll_sort(listaEmpleados, employee_compararHoras, order);
-					break;
-				case 4:
-					puts("\t  *************** Ordenar por ID ***************");
-					PedirEnteroP(&order, "1) Ordenar de forma ascendente \n0) Ordenar de forma descendente \nIngrese una opcion: ",
-							"Error, ingreso invalido \n", 0, 1);
-					ll_sort(listaEmpleados, employee_compararId, order);
-					break;
+					puts("\t  *************** Lista ordenada por ID nuevamente ***************");
+				}
+				else
+				{
+					puts("Error al realizar el listado!");
 				}
 				banderaGuardarTexto = 0;
 				banderaGuardarBinario = 0;
-				controller_ListEmployee(listaEmpleados);
 			}
 			else
 			{
@@ -207,6 +180,10 @@ int main()
 				banderaModificaciones = 0;
 				puts("\t  *************** Lista guardada en modo texto! ***************");
 			}
+			else
+			{
+				puts("\t  *************** Error al guardar en modo texto! ***************");
+			}
 			break;
 		case 9:
 			puts("\t  *************** Guardar lista en modo binario ***************");
@@ -216,6 +193,10 @@ int main()
 				banderaModificaciones = 0;
 				puts("\t  *************** Lista guardada en modo binario! ***************");
 			}
+			else
+			{
+				puts("\t  *************** Error al guardar en modo binario! ***************");
+			}
 			break;
 		case 10:
 			puts("\t  *************** Salir ***************");
@@ -223,6 +204,11 @@ int main()
 			{
 				PedirEnteroP(&salir, "Se realizaron modificaciones en la lista de empleados, quiere salir sin guardar? \n"
 						"1) Salir sin guardar \n2) Cancelar \nElija una opcion: \n", "Error, ingreso invalido \n", 1, 2);
+				if(salir == 1)
+				{
+					controller_guardarId2(bancoId);
+					ll_deleteLinkedList(listaEmpleados);
+				}
 			}
 			else
 			{
@@ -230,12 +216,20 @@ int main()
 				{
 					PedirEnteroP(&salir, "Solo se guardo la nueva lista en uno de los formatos. \n"
 							"Aconsejamos que lo guardes en los 2 formatos, aun asi, quiere salir sin guardar en los 2 formatos? \n"
-								"1) Salir sin guardar \n2) Cancelar \nElija una opcion: \n", "Error, ingreso invalido \n", 1, 2);
+							"1) Salir sin guardar \n2) Cancelar \nElija una opcion: \n", "Error, ingreso invalido \n", 1, 2);
+					if(salir == 1)
+					{
+						controller_guardarId2(bancoId);
+						ll_deleteLinkedList(listaEmpleados);
+					}
 				}
-				PedirEnteroP(&salir, "1) Salir \n2) Cancelar \nElija una opcion: \n", "Error, ingreso invalido \n", 1, 2);
-				if(salir == 1)
+				else
 				{
-					ll_deleteLinkedList(listaEmpleados);
+					PedirEnteroP(&salir, "1) Salir \n2) Cancelar \nElija una opcion: \n", "Error, ingreso invalido \n", 1, 2);
+					if(salir == 1)
+					{
+						ll_deleteLinkedList(listaEmpleados);
+					}
 				}
 			}
 			break;

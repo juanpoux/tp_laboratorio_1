@@ -11,8 +11,6 @@ typedef struct
     int sueldo;
 }Employee;
 
-//agregar set id, set nombre etc...
-//funciones de comparacion para ordenamientos
 
 Employee* employee_new();
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char *sueldoStr);
@@ -33,7 +31,6 @@ int employee_getSueldo(Employee* this,int* sueldo);
 int employee_setSueldoXTeclado(Employee *this);
 int employee_setNombreXTeclado(Employee *this);
 int employee_setHorasTrabajadasXTeclado(Employee *this);
-//Employee* employee_newXTeclado(int id);
 Employee* employee_newXTeclado();
 
 int employee_mostrarUno(Employee *this);

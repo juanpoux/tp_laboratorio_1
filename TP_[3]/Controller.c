@@ -23,7 +23,6 @@ int controller_loadFromText(char *path, LinkedList *pArrayListEmployee)
 		}
 		fclose(pFile);
 	}
-
 	return retorno;
 }
 
@@ -64,6 +63,8 @@ int controller_addEmployee(LinkedList *pArrayListEmployee)
 	int retorno;
 	Employee *aux;
 	int id;
+	int respuesta;
+
 	retorno = -1;
 	if(pArrayListEmployee != NULL)
 	{
@@ -72,34 +73,23 @@ int controller_addEmployee(LinkedList *pArrayListEmployee)
 		id = controller_leerId();
 		id++;
 		employee_setId(aux, id);
-		controller_guardarId2(id);
-		ll_add(pArrayListEmployee, aux);
 		employee_encabezado();
 		employee_mostrarUno(aux);
 		Renglones(-1, 45, '-');
+		PedirEnteroP(&respuesta, "Desea guardar el empleado asi? \n1) Si \n2) No \nIngrese una opcion: ", "Error ingreso inalido \n", 1, 2);
+		if(respuesta == 1)
+		{
+			ll_add(pArrayListEmployee, aux);
+			controller_guardarId2(id);
+		}
+		else
+		{
+			free(aux);
+			retorno = 1;
+		}
 	}
 	return retorno;
 }
-
-/*int controller_addEmployee(LinkedList *pArrayListEmployee, int *id)
-{
-	int retorno;
-	Employee *aux;
-	int idLocal;
-	retorno = -1;
-	if(pArrayListEmployee != NULL)
-	{
-		idLocal = *id;
-		retorno = 0;
-		aux = employee_newXTeclado(idLocal);
-		ll_add(pArrayListEmployee, aux);
-		employee_encabezado();
-		employee_mostrarUno(aux);
-		idLocal++;
-		*id = idLocal;
-	}
-	return retorno;
-}*/
 
 /** \brief Modificar datos de empleado
  *
@@ -173,7 +163,7 @@ int controller_removeEmployee(LinkedList *pArrayListEmployee)
 		employee_encabezado();
 		employee_mostrarUno(aux);
 		Renglones(-1, 45, '-');
-		PedirEnteroP(&mod, "1) Remover este empleado \n2) Desea cancelar \nIngrese una opcion: ", "Error, ingreso invalido ", 1, 2);
+		PedirEnteroP(&mod, "1) Desea remover este empleado \n2) Desea cancelar \nIngrese una opcion: ", "Error, ingreso invalido \n", 1, 2);
 		if(mod == 1)
 		{
 			retorno = 0;
@@ -226,7 +216,48 @@ int controller_ListEmployee(LinkedList *pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList *pArrayListEmployee)
 {
-	return 1;
+	int retorno;
+	int opcion;
+	int order;
+	LinkedList *aux;
+
+	aux = ll_clone(pArrayListEmployee);
+	retorno = -1;
+	if(pArrayListEmployee != NULL)
+	{
+		retorno = 0;
+		PedirEnteroP(&opcion, "1) Ordenar por nombres \n2) Ordenar por sueldos \n3) Ordenar por horas trabajadas "
+				"\n4) Ordenar por ID \nIngrese una opcion: ", "Error, ingreso invalido \n", 1, 4);
+		switch(opcion)
+		{
+		case 1:
+			puts("\t  *************** Ordenar por nombre ***************");
+			PedirEnteroP(&order, "1) Ordenar de A a Z \n0) Ordenar de Z a A \nIngrese una opcion: ", "Error, ingreso invalido \n", 0, 1);
+			ll_sort(aux, employee_compararNombres, order);
+			break;
+		case 2:
+			puts("\t  *************** Ordenar por sueldo ***************");
+			PedirEnteroP(&order, "1) Ordenar de forma ascendente \n0) Ordenar de forma descendente \nIngrese una opcion: ",
+					"Error, ingreso invalido \n", 0, 1);
+			ll_sort(aux, employee_compararSueldo, order);
+			break;
+		case 3:
+			puts("\t  *************** Ordenar por horas trabajadas ***************");
+			PedirEnteroP(&order, "1) Ordenar de forma ascendente \n0) Ordenar de forma descendente \nIngrese una opcion: ",
+					"Error, ingreso invalido \n", 0, 1);
+			ll_sort(aux, employee_compararHoras, order);
+			break;
+		case 4:
+			puts("\t  *************** Ordenar por ID ***************");
+			PedirEnteroP(&order, "1) Ordenar de forma ascendente \n0) Ordenar de forma descendente \nIngrese una opcion: ",
+					"Error, ingreso invalido \n", 0, 1);
+			ll_sort(aux, employee_compararId, order);
+			break;
+		}
+		controller_ListEmployee(aux);
+		ll_deleteLinkedList(aux);
+	}
+	return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -244,7 +275,7 @@ int controller_saveAsText(char *path, LinkedList *pArrayListEmployee)
 	if(path != NULL && pArrayListEmployee != NULL)
 	{
 		pFile = fopen(path, "w");
-		if(!parser_TextFromEmployee(pFile, pArrayListEmployee))
+		if(pFile != NULL && !parser_TextFromEmployee(pFile, pArrayListEmployee))
 		{
 			retorno = 0;
 		}
@@ -268,7 +299,7 @@ int controller_saveAsBinary(char *path, LinkedList *pArrayListEmployee)
 	if(path != NULL && pArrayListEmployee != NULL)
 	{
 		pFile = fopen(path, "wb");
-		if(!parser_BinaryFromEmployee(pFile, pArrayListEmployee))
+		if(pFile != NULL && !parser_BinaryFromEmployee(pFile, pArrayListEmployee))
 		{
 			retorno = 0;
 		}
@@ -277,6 +308,12 @@ int controller_saveAsBinary(char *path, LinkedList *pArrayListEmployee)
 	return retorno;
 }
 
+/// @fn int controller_buscarIndexPorId(LinkedList*, int)
+/// @brief busca un indice por ID
+///
+/// @param pArrayListEmployee
+/// @param id
+/// @return -1 si no encontro, el indice si lo encontro
 int controller_buscarIndexPorId(LinkedList *pArrayListEmployee, int id)
 {
 	int retorno;
@@ -301,6 +338,11 @@ int controller_buscarIndexPorId(LinkedList *pArrayListEmployee, int id)
 	return retorno;
 }
 
+/// @fn int controller_pedirIdActivoYBuscarIndex(LinkedList*)
+/// @brief pide el id que va a usar para buscar el indice hasta que ingrese un id correcto
+///
+/// @param pArrayListEmployee
+/// @return -1 si no encontro, el indice si lo encontro
 int controller_pedirIdActivoYBuscarIndex(LinkedList *pArrayListEmployee)
 {
 	int idAux;
@@ -323,6 +365,10 @@ int controller_pedirIdActivoYBuscarIndex(LinkedList *pArrayListEmployee)
 	return retorno;
 }
 
+/// @fn int controller_menuDeOpciones()
+/// @brief menu principal de opciones
+///
+/// @return nada
 int controller_menuDeOpciones()
 {
 	int retorno;
@@ -344,36 +390,49 @@ int controller_menuDeOpciones()
 	return retorno;
 }
 
-void controller_guardarId(char *path, int bancoId)
+/// @fn int controller_guardarId2(int)
+/// @brief guarda un id en un archivo especifico
+///
+/// @param guardarId
+/// @return retorna -1 si no pudo, 0 si pudo
+int controller_guardarId2(int guardarId)
 {
 	FILE *archivoId;
+	int retorno;
 
-	archivoId = fopen(path, "w");
-	fprintf(archivoId, "%d", bancoId);
-	fclose(archivoId);
-}
-void controller_guardarId2(int guardarId)
-{
-	FILE *archivoId;
-
+	retorno = -1;
 	archivoId = fopen(ARCHIVOID, "w");
-	fprintf(archivoId, "%d", guardarId);
-	fclose(archivoId);
+	if(archivoId != NULL)
+	{
+		retorno = 0;
+		fprintf(archivoId, "%d", guardarId);
+		fclose(archivoId);
+	}
+	return retorno;
 }
 
+/// @fn int controller_leerId()
+/// @brief lee el ultimo id de un archivo
+///
+/// @return retorna -1 si no pudo, 0 si pudo
 int controller_leerId()
 {
 	FILE *archivoId;
 	char idStr[25];
 	int idNum;
 
+	idNum = -1;
 	archivoId = fopen(ARCHIVOID, "r");
-	fscanf(archivoId, "%s", idStr);
-	idNum = atoi(idStr);
-	fclose(archivoId);
+	if(archivoId != NULL)
+	{
+		fscanf(archivoId, "%s", idStr);
+		idNum = atoi(idStr);
+		fclose(archivoId);
+	}
 	return idNum;
 }
 
+/*
 int controller_generarPrimerId(LinkedList *pArrayListEmployee, int *bancoId)
 {
 	int retorno;
@@ -400,6 +459,26 @@ int controller_generarPrimerId(LinkedList *pArrayListEmployee, int *bancoId)
 			}
 		}
 		*bancoId = masAlto + 1;
+	}
+	return retorno;
+}*/
+
+/// @fn int controller_GuardarPrimerId(int*)
+/// @brief guarda el primer id en una variable por si se cierra el programa sin guardar
+///
+/// @param id
+/// @return -1 si hubo algun error, 0 si pudo
+int controller_GuardarPrimerId(int *id)
+{
+	int primerId;
+	int retorno;
+
+	retorno = -1;
+	if(id != NULL)
+	{
+		retorno = 0;
+		primerId = controller_leerId();
+		*id = primerId;
 	}
 	return retorno;
 }
