@@ -525,7 +525,19 @@ LinkedList* ll_subList(LinkedList *this, int from, int to)
 LinkedList* ll_clone(LinkedList *this)
 {
 	LinkedList *cloneArray = NULL;
+	Node *aux;
+	int tam;
 
+	cloneArray = ll_newLinkedList();
+	if(this != NULL && cloneArray != NULL)
+	{
+		tam = ll_len(this);
+		for(int i = 0; i < tam; i++)
+		{
+			aux = getNode(this, i);
+			addNode(cloneArray, i, aux->pElement);
+		}
+	}
 	return cloneArray;
 }
 

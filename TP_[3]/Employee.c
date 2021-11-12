@@ -1,5 +1,9 @@
 #include "Employee.h"
 
+/// @fn Employee employee_new*()
+/// @brief construye y asigna un espacio en memoria para un empleado
+///
+/// @return un puntero a empleado
 Employee* employee_new()
 {
 	Employee *auxEmpleado;
@@ -12,9 +16,17 @@ Employee* employee_new()
 		employee_setHorasTrabajadas(auxEmpleado, 0);
 		employee_setSueldo(auxEmpleado, 0);
 	}
-
 	return auxEmpleado;
 }
+
+/// @fn Employee employee_newParametros*(char*, char*, char*, char*)
+/// @brief convierte lo que recibe en datos especificos y los asigna a los campos de un empleado
+///
+/// @param idStr id en formato string
+/// @param nombreStr nombre
+/// @param horasTrabajadasStr horas trabajadas en formato string
+/// @param sueldoStr sueldo en formato string
+/// @return retorna el puntero a empleado
 Employee* employee_newParametros(char *idStr, char *nombreStr, char *horasTrabajadasStr, char *sueldoStr)
 {
 	Employee *aux;
@@ -37,6 +49,11 @@ Employee* employee_newParametros(char *idStr, char *nombreStr, char *horasTrabaj
 	return aux;
 }
 
+/// @fn int employee_delete(Employee*)
+/// @brief elimina un empleado de memoria
+///
+/// @param this
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_delete(Employee *this)
 {
 	int retorno;
@@ -49,6 +66,12 @@ int employee_delete(Employee *this)
 	return retorno;
 }
 
+/// @fn int employee_setId(Employee*, int)
+/// @brief agrega un valor al campo ID de un empleado
+///
+/// @param this
+/// @param id id para agregar al campo del empleado
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setId(Employee *this, int id)
 {
 	int retorno;
@@ -62,6 +85,12 @@ int employee_setId(Employee *this, int id)
 	return retorno;
 }
 
+/// @fn int employee_getId(Employee*, int*)
+/// @brief pide el valor del campo id de un empleado
+///
+/// @param this
+/// @param id
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_getId(Employee *this, int *id)
 {
 	int retorno;
@@ -75,6 +104,12 @@ int employee_getId(Employee *this, int *id)
 	return retorno;
 }
 
+/// @fn int employee_setNombre(Employee*, char*)
+/// @brief agrega una cadena al campo nombre de un empleado
+///
+/// @param this
+/// @param nombre
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setNombre(Employee *this, char *nombre)
 {
 	int retorno;
@@ -88,6 +123,11 @@ int employee_setNombre(Employee *this, char *nombre)
 	return retorno;
 }
 
+/// @fn int employee_setNombreXTeclado(Employee*)
+/// @brief agrega una cadena que ingresa el usuario al campo ID de un empleado
+///
+/// @param this
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setNombreXTeclado(Employee *this)
 {
 	int retorno;
@@ -103,6 +143,12 @@ int employee_setNombreXTeclado(Employee *this)
 	return retorno;
 }
 
+/// @fn int employee_getNombre(Employee*, char*)
+/// @brief pide la cadena del campo nombre de un empleado
+///
+/// @param this
+/// @param nombre
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_getNombre(Employee *this, char *nombre)
 {
 	int retorno;
@@ -116,6 +162,12 @@ int employee_getNombre(Employee *this, char *nombre)
 	return retorno;
 }
 
+/// @fn int employee_setHorasTrabajadas(Employee*, int)
+/// @brief agrega un valor al campo horasTrabajadas de un empleado
+///
+/// @param this
+/// @param horasTrabajadas
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setHorasTrabajadas(Employee *this, int horasTrabajadas)
 {
 	int retorno;
@@ -129,6 +181,11 @@ int employee_setHorasTrabajadas(Employee *this, int horasTrabajadas)
 	return retorno;
 }
 
+/// @fn int employee_setHorasTrabajadasXTeclado(Employee*)
+/// @brief agrega un valor que pide al usuario al campo horasTrabajadas de un empleado
+///
+/// @param this
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setHorasTrabajadasXTeclado(Employee *this)
 {
 	int retorno;
@@ -144,6 +201,12 @@ int employee_setHorasTrabajadasXTeclado(Employee *this)
 	return retorno;
 }
 
+/// @fn int employee_getHorasTrabajadas(Employee*, int*)
+/// @brief pide el valor del campo horasTrabajadas de un empleado
+///
+/// @param this
+/// @param horasTrabajadas
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_getHorasTrabajadas(Employee *this, int *horasTrabajadas)
 {
 	int retorno;
@@ -156,6 +219,13 @@ int employee_getHorasTrabajadas(Employee *this, int *horasTrabajadas)
 	}
 	return retorno;
 }
+
+/// @fn int employee_setSueldo(Employee*, int)
+/// @brief agrega un valor al campo sueldo de un empleado
+///
+/// @param this
+/// @param sueldo
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setSueldo(Employee *this, int sueldo)
 {
 	int retorno;
@@ -169,6 +239,11 @@ int employee_setSueldo(Employee *this, int sueldo)
 	return retorno;
 }
 
+/// @fn int employee_setSueldoXTeclado(Employee*)
+/// @brief agrega un valor que pide al usuario al campo ID de un empleado
+///
+/// @param this
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_setSueldoXTeclado(Employee *this)
 {
 	int retorno;
@@ -184,6 +259,12 @@ int employee_setSueldoXTeclado(Employee *this)
 	return retorno;
 }
 
+/// @fn int employee_getSueldo(Employee*, int*)
+/// @brief pide el valor del campo sueldo de un empleado
+///
+/// @param this
+/// @param sueldo
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_getSueldo(Employee *this, int *sueldo)
 {
 	int retorno;
@@ -197,6 +278,11 @@ int employee_getSueldo(Employee *this, int *sueldo)
 	return retorno;
 }
 
+/// @fn int employee_mostrarUno(Employee*)
+/// @brief
+///
+/// @param this
+/// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
 int employee_mostrarUno(Employee *this)
 {
 	int retorno;
@@ -220,6 +306,9 @@ int employee_mostrarUno(Employee *this)
 	return retorno;
 }
 
+/// @fn void employee_encabezado()
+/// @brief
+///
 void employee_encabezado()
 {
 	Renglones(-1, 45, '=');
@@ -227,6 +316,12 @@ void employee_encabezado()
 	Renglones(-1, 45, '=');
 }
 
+/// @fn int employee_compararNombres(void*, void*)
+/// @brief
+///
+/// @param empleadoUno
+/// @param empleadoDos
+/// @return
 int employee_compararNombres(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -246,6 +341,12 @@ int employee_compararNombres(void *empleadoUno, void *empleadoDos)
 	return retorno;
 }
 
+/// @fn int employee_compararSueldo(void*, void*)
+/// @brief
+///
+/// @param empleadoUno
+/// @param empleadoDos
+/// @return
 int employee_compararSueldo(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -276,6 +377,12 @@ int employee_compararSueldo(void *empleadoUno, void *empleadoDos)
 	return retorno;
 }
 
+/// @fn int employee_compararHoras(void*, void*)
+/// @brief
+///
+/// @param empleadoUno
+/// @param empleadoDos
+/// @return
 int employee_compararHoras(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -306,6 +413,12 @@ int employee_compararHoras(void *empleadoUno, void *empleadoDos)
 	return retorno;
 }
 
+/// @fn int employee_compararId(void*, void*)
+/// @brief
+///
+/// @param empleadoUno
+/// @param empleadoDos
+/// @return
 int employee_compararId(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -336,6 +449,10 @@ int employee_compararId(void *empleadoUno, void *empleadoDos)
 	return retorno;
 }
 
+/// @fn Employee employee_newXTeclado*()
+/// @brief
+///
+/// @return un puntero a empleado
 Employee* employee_newXTeclado()
 {
 	Employee *aux;

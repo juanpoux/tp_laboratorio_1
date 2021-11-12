@@ -11,9 +11,27 @@ typedef struct
     int sueldo;
 }Employee;
 
-
+/// @fn Employee employee_new*()
+/// @brief
+///
+/// @return
 Employee* employee_new();
+
+/// @fn Employee employee_newParametros*(char*, char*, char*, char*)
+/// @brief
+///
+/// @param idStr
+/// @param nombreStr
+/// @param horasTrabajadasStr
+/// @param sueldoStr
+/// @return
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char *sueldoStr);
+
+/// @fn int employee_delete(Employee*)
+/// @brief
+///
+/// @param this
+/// @return
 int employee_delete(Employee *this);
 
 int employee_setId(Employee* this,int id);
