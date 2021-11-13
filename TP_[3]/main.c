@@ -29,11 +29,13 @@ int main()
 	int banderaModificaciones;
 	int banderaGuardarTexto;
 	int banderaGuardarBinario;
+	int banderaAlta;
 
 	banderaInicio = 0;
 	banderaModificaciones = 0;
 	banderaGuardarTexto = 1;
 	banderaGuardarBinario = 1;
+	banderaAlta = 0;
 	do
 	{
 		switch(controller_menuDeOpciones())
@@ -91,6 +93,7 @@ int main()
 				banderaModificaciones = 1;
 				banderaGuardarTexto = 0;
 				banderaGuardarBinario = 0;
+				banderaAlta = 1;
 				break;
 			case 1:
 				puts("\t  *************** Alta cancelada ***************");
@@ -173,29 +176,59 @@ int main()
 			}
 			break;
 		case 8:
-			puts("\t  *************** Guardar lista en modo texto ***************");
-			if(!controller_saveAsText(ARCHIVOPRINCIPAL, listaEmpleados))
+			if(banderaInicio == 0 && banderaAlta == 1)
 			{
-				banderaGuardarTexto = 1;
-				banderaModificaciones = 0;
-				puts("\t  *************** Lista guardada en modo texto! ***************");
+				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos\n"
+						".  Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
 			}
 			else
 			{
-				puts("\t  *************** Error al guardar en modo texto! ***************");
+				if(banderaInicio == 1)
+				{
+					puts("\t  *************** Guardar lista en modo texto ***************");
+					if(!controller_saveAsText(ARCHIVOPRINCIPAL, listaEmpleados))
+					{
+						banderaGuardarTexto = 1;
+						banderaModificaciones = 0;
+						puts("\t  *************** Lista guardada en modo texto! ***************");
+					}
+					else
+					{
+						puts("\t  *************** Error al guardar en modo texto! ***************");
+					}
+				}
+				else
+				{
+					puts("Debe al menos cargar el archivo para poder guardar!");
+				}
 			}
 			break;
 		case 9:
 			puts("\t  *************** Guardar lista en modo binario ***************");
-			if(!controller_saveAsBinary(ARCHIVOBINARIO, listaEmpleados))
+			if(banderaInicio == 0 && banderaAlta == 1)
 			{
-				banderaGuardarBinario = 1;
-				banderaModificaciones = 0;
-				puts("\t  *************** Lista guardada en modo binario! ***************");
+				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos\n"
+						". Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
 			}
 			else
 			{
-				puts("\t  *************** Error al guardar en modo binario! ***************");
+				if(banderaInicio == 1)
+				{
+					if(!controller_saveAsBinary(ARCHIVOBINARIO, listaEmpleados))
+					{
+						banderaGuardarBinario = 1;
+						banderaModificaciones = 0;
+						puts("\t  *************** Lista guardada en modo binario! ***************");
+					}
+					else
+					{
+						puts("\t  *************** Error al guardar en modo binario! ***************");
+					}
+				}
+				else
+				{
+					puts("Debe al menos cargar el archivo para poder guardar!");
+				}
 			}
 			break;
 		case 10:
@@ -214,8 +247,8 @@ int main()
 			{
 				if(banderaGuardarBinario != 1 || banderaGuardarTexto != 1)
 				{
-					PedirEnteroP(&salir, "Solo se guardo la nueva lista en uno de los formatos. \n"
-							"Aconsejamos que lo guardes en los 2 formatos, aun asi, quiere salir sin guardar en los 2 formatos? \n"
+					PedirEnteroP(&salir, "Solo se guardo la nueva lista en uno de los modos. \n"
+							"Aconsejamos que lo guardes en los 2 modos, aun asi, quiere salir sin guardar en los 2 modos? \n"
 							"1) Salir sin guardar \n2) Cancelar \nElija una opcion: \n", "Error, ingreso invalido \n", 1, 2);
 					if(salir == 1)
 					{
