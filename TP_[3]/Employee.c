@@ -279,7 +279,7 @@ int employee_getSueldo(Employee *this, int *sueldo)
 }
 
 /// @fn int employee_mostrarUno(Employee*)
-/// @brief
+/// @brief Muestra los datos de un empleado por columnas
 ///
 /// @param this
 /// @return retorna -1 si hubo algun error, 0 si pudo hacerlo
@@ -317,11 +317,11 @@ void employee_encabezado()
 }
 
 /// @fn int employee_compararNombres(void*, void*)
-/// @brief
+/// @brief compara el campo nombre de 2 empleados
 ///
 /// @param empleadoUno
 /// @param empleadoDos
-/// @return
+/// @return 0 si son iguales (valor ascii), 1 si el primero es mayor (valor ascii), -1 si el segundo es mayor (valor ascii)
 int employee_compararNombres(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -342,11 +342,11 @@ int employee_compararNombres(void *empleadoUno, void *empleadoDos)
 }
 
 /// @fn int employee_compararSueldo(void*, void*)
-/// @brief
+/// @brief compara el campo sueldo de 2 empleados
 ///
 /// @param empleadoUno
 /// @param empleadoDos
-/// @return
+/// @return 0 si son iguales, 1 si el primero es mayor, -1 si el segundo es mayor
 int employee_compararSueldo(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -378,11 +378,11 @@ int employee_compararSueldo(void *empleadoUno, void *empleadoDos)
 }
 
 /// @fn int employee_compararHoras(void*, void*)
-/// @brief
+/// @brief compara el campo horasTrabajadas de 2 empleados
 ///
 /// @param empleadoUno
 /// @param empleadoDos
-/// @return
+/// @return 0 si son iguales, 1 si el primero es mayor, -1 si el segundo es mayor
 int employee_compararHoras(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -414,11 +414,11 @@ int employee_compararHoras(void *empleadoUno, void *empleadoDos)
 }
 
 /// @fn int employee_compararId(void*, void*)
-/// @brief
+/// @brief compara el campo id de empleados
 ///
 /// @param empleadoUno
 /// @param empleadoDos
-/// @return
+/// @return 0 si son iguales, 1 si el primero es mayor, -1 si el segundo es mayor
 int employee_compararId(void *empleadoUno, void *empleadoDos)
 {
 	int retorno;
@@ -450,7 +450,7 @@ int employee_compararId(void *empleadoUno, void *empleadoDos)
 }
 
 /// @fn Employee employee_newXTeclado*()
-/// @brief
+/// @brief Pide al usuario todos los datos por teclado y devuelve un puntero a empleado
 ///
 /// @return un puntero a empleado
 Employee* employee_newXTeclado()
