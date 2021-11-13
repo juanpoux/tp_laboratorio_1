@@ -4,11 +4,11 @@
 #define CALCULOS_H_
 #include "Input.h"
 
-
-float Resta (float numeroUno, float numeroDos, float *resultado);
-float Multiplicacion (float numeroUno, float numeroDos, float *resultado);
+int Suma(float numeroUno, float numeroDos, float *resultado);
+int Resta (float numeroUno, float numeroDos, float *resultado);
+int Multiplicacion (float numeroUno, float numeroDos, float *resultado);
 int Division(float numeroUno, float numeroDos, float *resultado);
-int ConvertirFlotanteAEntero(float numeroIngresado);
-int CalcularFactorial(int* resultado, int numeroIngresado);
+int CalcularFactorial(int *resultado, float numeroIngresado);
+int VerificarSiEsEntero(float numero);
 
 #endif /* CALCULOS_H_ */

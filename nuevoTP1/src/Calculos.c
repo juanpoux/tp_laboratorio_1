@@ -1,6 +1,21 @@
 #include "Calculos.h"
 
-float Resta (float numeroUno, float numeroDos, float *resultado)
+int Suma(float numeroUno, float numeroDos, float *resultado)
+{
+	float calculo;
+	int retorno;
+
+	retorno = -1;
+	if(resultado != NULL)
+	{
+		retorno = 0;
+		calculo = numeroUno + numeroDos;
+		*resultado = calculo;
+	}
+	return retorno;
+}
+
+int Resta(float numeroUno, float numeroDos, float *resultado)
 {
 	float calculo;
 	int retorno;
@@ -15,7 +30,7 @@ float Resta (float numeroUno, float numeroDos, float *resultado)
 	return retorno;
 }
 
-float Multiplicacion (float numeroUno, float numeroDos, float *resultado)
+int Multiplicacion(float numeroUno, float numeroDos, float *resultado)
 {
 	float calculo;
 	int retorno;
@@ -38,7 +53,7 @@ int Division(float numeroUno, float numeroDos, float *resultado)
 	retorno = -1;
 	if(resultado != NULL)
 	{
-		if(numeroUno == 0 || numeroDos == 0)
+		if(numeroDos == 0)
 		{
 			retorno = 1;
 		}
@@ -52,44 +67,45 @@ int Division(float numeroUno, float numeroDos, float *resultado)
 	return retorno;
 }
 
-int ConvertirFlotanteAEntero(float numeroIngresado)
-{
-	int retorno;
-
-	if(numeroIngresado - (int)numeroIngresado == 0)
-	{
-		retorno = 1;
-	}
-	else
-	{
-		retorno = 0;
-	}
-
-	return retorno;
-}
-
-int CalcularFactorial(int* resultado, int numeroIngresado)
+int CalcularFactorial(int *resultado, float numeroIngresado)
 {
 	int retorno;
 	int factorial;
 
-	factorial = -1;
+	retorno = -1;
 	if(resultado != NULL)
 	{
+		factorial = (int)numeroIngresado;
 		retorno = 0;
-		if(numeroIngresado == 0)
+		if(factorial == 0)
 		{
-			numeroIngresado = 1;
-			*resultado = numeroIngresado;
+			factorial = 1;
 		}
 		else
 		{
-			for(int i = factorial; i > 0; i--)
+			for(int i = factorial - 1; i > 0; i--)
 			{
-				numeroIngresado = numeroIngresado * i;
+				factorial = factorial * i;
 			}
-			*resultado = numeroIngresado;
 		}
+		*resultado = factorial;
+	}
+	return retorno;
+}
+
+int VerificarSiEsEntero(float numero)
+{
+	int retorno;
+	int parteEntera;
+	float decimal;
+	int resultado;
+	retorno = -1;
+	parteEntera = (int) numero;
+	decimal = numero - parteEntera;
+	resultado = decimal * 100;
+	if(!resultado)
+	{
+		retorno = 0;
 	}
 	return retorno;
 }
