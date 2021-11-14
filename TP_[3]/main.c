@@ -169,8 +169,8 @@ int main()
 		case 8:
 			if(banderaInicio == 0 && banderaAlta == 1)
 			{
-				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos\n"
-						".  Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
+				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos.\n"
+						"Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
 			}
 			else
 			{
@@ -198,8 +198,8 @@ int main()
 			puts("\t  *************** Guardar lista en modo binario ***************");
 			if(banderaInicio == 0 && banderaAlta == 1)
 			{
-				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos\n"
-						". Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
+				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos.\n"
+						"Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
 			}
 			else
 			{
