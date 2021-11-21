@@ -53,16 +53,9 @@ int Division(float numeroUno, float numeroDos, float *resultado)
 	retorno = -1;
 	if(resultado != NULL)
 	{
-		if(numeroDos == 0)
-		{
-			retorno = 1;
-		}
-		else
-		{
-			retorno = 0;
-			calculo = numeroUno / numeroDos;
-			*resultado = calculo;
-		}
+		retorno = 0;
+		calculo = numeroUno / numeroDos;
+		*resultado = calculo;
 	}
 	return retorno;
 }
@@ -75,7 +68,7 @@ int CalcularFactorial(int *resultado, float numeroIngresado)
 	retorno = -1;
 	if(resultado != NULL)
 	{
-		factorial = (int)numeroIngresado;
+		factorial = (int) numeroIngresado;
 		retorno = 0;
 		if(factorial == 0)
 		{
@@ -99,7 +92,7 @@ int VerificarSiEsEntero(float numero)
 	int parteEntera;
 	float decimal;
 	int resultado;
-	retorno = -1;
+	retorno = 1;
 	parteEntera = (int) numero;
 	decimal = numero - parteEntera;
 	resultado = decimal * 100;

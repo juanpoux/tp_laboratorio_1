@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../inc/LinkedList.h"
+#include "LinkedList.h"
 
 static Node* getNode(LinkedList *this, int nodeIndex);
 static int addNode(LinkedList *this, int nodeIndex, void *pElement);
@@ -511,20 +511,11 @@ int ll_sort(LinkedList *this, int (*pFunc)(void*, void*), int order)
 				parametroUno = ll_get(this, i);
 				parametroDos = ll_get(this, j);
 				comparacion = pFunc(parametroUno, parametroDos);
-				if(comparacion > 0 && order == 1)
+				if((comparacion > 0 && order == 1) || (comparacion < 0 && order == 0))
 				{
 					auxPElement = parametroUno;
 					ll_set(this, i, parametroDos);
 					ll_set(this, j, auxPElement);
-				}
-				else
-				{
-					if(comparacion < 0 && order == 0)
-					{
-						auxPElement = parametroUno;
-						ll_set(this, i, parametroDos);
-						ll_set(this, j, auxPElement);
-					}
 				}
 			}
 		}

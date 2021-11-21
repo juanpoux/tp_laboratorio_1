@@ -300,6 +300,7 @@ int employee_mostrarUno(Employee *this)
 		employee_getHorasTrabajadas(this, &horas);
 		employee_getSueldo(this, &sueldo);
 		printf("|%-4d |%-15s |%-6d |%-12d|\n", id, nombre, horas, sueldo);
+		//Renglones(-1, 45, '-');
 	}
 
 	return retorno;

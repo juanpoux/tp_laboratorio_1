@@ -5,9 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Controller.h"
-#define ARCHIVOID "guardarId.csv"
-#define ARCHIVOPRINCIPAL "data.csv"
-#define ARCHIVOBINARIO "data.bin"
 
 int main()
 {
@@ -35,7 +32,7 @@ int main()
 			if(banderaInicio == 0)
 			{
 				puts("\t*************** Carga de empleados ***************");
-				if(!controller_loadFromText(ARCHIVOPRINCIPAL, listaEmpleados))
+				if(!controller_loadFromText("data.csv", listaEmpleados))
 				{
 					controller_GuardarPrimerId(&bancoId);
 					banderaInicio = 1;
@@ -133,6 +130,7 @@ int main()
 			}
 			break;
 		case 6:
+
 			if(!ll_isEmpty(listaEmpleados))
 			{
 				puts("\t  *************** Listado de empleados ***************");
@@ -167,7 +165,7 @@ int main()
 			}
 			break;
 		case 8:
-			if(banderaInicio == 0 && banderaAlta == 1)
+			/*if(banderaInicio == 0 && banderaAlta == 1)
 			{
 				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos.\n"
 						"Primero tiene que hacer la carga del archivo y luego va a poder guardar.");
@@ -175,7 +173,7 @@ int main()
 			else
 			{
 				if(banderaInicio == 1)
-				{
+				{*/
 					puts("\t  *************** Guardar lista en modo texto ***************");
 					if(!controller_saveAsText(ARCHIVOPRINCIPAL, listaEmpleados))
 					{
@@ -183,7 +181,7 @@ int main()
 						banderaModificaciones = 0;
 						puts("\t  *************** Lista guardada en modo texto! ***************");
 					}
-					else
+					/*else
 					{
 						puts("\t  *************** Error al guardar en modo texto! ***************");
 					}
@@ -192,10 +190,10 @@ int main()
 				{
 					puts("Debe al menos cargar el archivo para poder guardar!");
 				}
-			}
+			}*/
 			break;
 		case 9:
-			puts("\t  *************** Guardar lista en modo binario ***************");
+			/*puts("\t  *************** Guardar lista en modo binario ***************");
 			if(banderaInicio == 0 && banderaAlta == 1)
 			{
 				puts("Se dio de alta al menos un empleado nuevo sin haber cargado el archivo, si guarda asi se sobreescribiran todos los datos.\n"
@@ -204,14 +202,14 @@ int main()
 			else
 			{
 				if(banderaInicio == 1)
-				{
+				{*/
 					if(!controller_saveAsBinary(ARCHIVOBINARIO, listaEmpleados))
 					{
 						banderaGuardarBinario = 1;
 						banderaModificaciones = 0;
 						puts("\t  *************** Lista guardada en modo binario! ***************");
 					}
-					else
+					/*else
 					{
 						puts("\t  *************** Error al guardar en modo binario! ***************");
 					}
@@ -220,7 +218,7 @@ int main()
 				{
 					puts("Debe al menos cargar el archivo para poder guardar!");
 				}
-			}
+			}*/
 			break;
 		case 10:
 			puts("\t  *************** Salir ***************");
